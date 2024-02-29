@@ -6,6 +6,7 @@ import {useState, useEffect } from "react";
 
 //create your first component
 export const Playlist = () => {
+	//const[currentSong, setCurrentSong]=useState
 let playlistSong=	[
 		{
 			title: "South Park",
@@ -30,22 +31,17 @@ let playlistSong=	[
 		}
 	];
 
-useEffect(()=>{
+// useEffect(()=>{
 
 
-},[]);
+// },[]);
+
 
  function play_function (id){
-alert('test');
-let audiotest= (playlistSong[id].url);
- }
-
-// function func1 (){
-    
-// }
-// function func1 (){
-    
-// }
+	alert(id);
+	var audioTest= new Audio(playlistSong[id].url);
+	audioTest.play();
+	 }
 
 
 return (
@@ -63,31 +59,21 @@ return (
         <span class="playlist-track" href="#" data-play-track="1" onClick={()=> play_function(1)}><h4>{playlistSong[0].title}</h4></span>
 		<p>{playlistSong[0].author}</p>
       </div>
-
-    <div class="play-list-row" data-track-row="2">
-      
-			</div>
-			
+	
 
       <div class="track-title">
 	  <span class="playlist-track" href="#" data-play-track="1" onClick={()=> play_function(2)}><h4>{playlistSong[1].title}</h4></span>
 	  <p>{playlistSong[1].author}</p>
       </div>
 
-    <div class="play-list-row" data-track-row="2">
-      
-			</div>
-
       <div class="track-title">
 	  <span class="playlist-track" href="#" data-play-track="1" onClick={()=> play_function(3)}><h4>{playlistSong[2].title}</h4></span>
 	  <p>{playlistSong[2].author}</p>
       </div>
 
-    <div class="play-list-row" data-track-row="2">
-      
-			</div>
-
-
+	  <audio  title="Track 1" >
+	 
+	  </audio>
 			</div>
 
 			
@@ -96,17 +82,18 @@ return (
 
 
 			<div className="audio_div">
-			<div class="text-center p-8 rounded" style={{backgroundColor : "rgba(0, 0, 0, 0.05)"}}>
-			<audio controls   title="Track 1" >
-    			<source src={playlistSong[0].url} data-track-number="1" />
-    			<source src={playlistSong[0].url} data-track-number="2" />
-                <source src={playlistSong[0].url} data-track-number="3" />
-    			<source src={playlistSong[0].url} data-track-number="4" />
-                <source src={playlistSong[0].url} data-track-number="5" />
-    			                      
-                Your browser does not support HTML5 audio.
-                </audio>
-             </div>
+			<div class="ui-seekbar">
+			<input type="range" class="ui-slider" min="1" max="1200" value="0"/>
+		</div>
+		
+		<div class="ui-controls">
+		
+			<i class="fas fa-random "></i>
+			<i class="fas fa-step-backward fas-2xl"></i>
+			<i class="fas fa-pause fas-2xl"></i>
+			<i class="fas fa-step-forward fa-2xl"></i>
+			<i class="fas fa-redo fa-2xl"></i>
+		</div>
 		
 				</div>
 		</div>

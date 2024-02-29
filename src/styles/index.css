@@ -8,14 +8,17 @@ body{
     margin: 0 auto;
     width: 600px;
   border-radius: 10px;
-    background-color: rgb(84, 80, 80);
-    color: rgb(193, 177, 177);
+ 
+  background: linear-gradient(45deg, #d2dfed 0%,#c8d7eb 26%,#bed0ea 51%,#a6c0e3 51%,#afc7e8 62%,#bad0ef 75%,#99b5db 88%,#799bc8 100%);
+    color: white;
 }
+
 
 span {
     cursor: pointer;
   
 }
+
 .track-title{
   height: 70px;
   width: 100%;  
@@ -31,33 +34,19 @@ div+p{
 
 }
 
-audio{
-    width: 400px;
-   
-   
-}
-.testp{
-    display: inline-flex;
+.audio_div{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin: auto;
 }
 
-
-audio::-webkit-media-controls-mute-button{
-    background-color: gray;
-    }
-audio::-webkit-media-controls-play-button
-{
-    background-color: gray;
-    }
-audio::-webkit-media-controls-timeline-container{
-    background-color: gray;
-    }
-audio::-webkit-media-controls-current-time-display{
-    background-color: gray;
-    }
-
-    audio::-webkit-media-controls-timeline{
-        background-color: gray;
-        }
+.ui-controls {
+	height: 15%;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
 
 
     
