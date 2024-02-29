@@ -6,7 +6,9 @@ import {useState, useEffect } from "react";
 
 //create your first component
 export const Playlist = () => {
-	//const[currentSong, setCurrentSong]=useState
+	const[currentSong, setCurrentSong]=useState(0);
+	const[playStatus, setPlayStatus]=useState('fa-solid fa-play fa-2xl');
+	var audioTest;
 let playlistSong=	[
 		{
 			title: "South Park",
@@ -31,17 +33,44 @@ let playlistSong=	[
 		}
 	];
 
-// useEffect(()=>{
+useEffect(()=>{
 
 
-// },[]);
+},[]);
 
 
- function play_function (id){
-	alert(id);
-	var audioTest= new Audio(playlistSong[id].url);
-	audioTest.play();
+function play_function (id){
+if(audioTest.paused){
+	setPlayStatus('fa-solid fa-play fa-2xl');
+	
+	//audioTest= new Audio(playlistSong[currentSong].url);
+   audioTest.play();
+}
+else{
+	setPlayStatus('fa-solid fa-pause fa-2xl');
+	setCurrentSong(id);
+	audioTest= new Audio(playlistSong[currentSong].url);
+   audioTest.play();
+}
+
+
 	 }
+
+	 
+
+		 function previous_function (){
+			setCurrentSong(currentSong-1);
+				audioTest= new Audio(playlistSong[currentSong].url);
+				audioTest.play();
+				 }
+
+		 function next_function (id){
+			setCurrentSong(currentSong+1);
+			 audioTest= new Audio(playlistSong[currentSong].url);
+			audioTest.play();
+			 }
+
+			
 
 
 return (
@@ -56,18 +85,18 @@ return (
 
 
       <div class="track-title"> 
-        <span class="playlist-track" href="#" data-play-track="1" onClick={()=> play_function(1)}><h4>{playlistSong[0].title}</h4></span>
+        <span class="playlist-track" href="#" data-play-track="1" onClick={()=> play_function(0)}><h4>{playlistSong[0].title}</h4></span>
 		<p>{playlistSong[0].author}</p>
       </div>
 	
 
       <div class="track-title">
-	  <span class="playlist-track" href="#" data-play-track="1" onClick={()=> play_function(2)}><h4>{playlistSong[1].title}</h4></span>
+	  <span class="playlist-track" href="#" data-play-track="1" onClick={()=> play_function(1)}><h4>{playlistSong[1].title}</h4></span>
 	  <p>{playlistSong[1].author}</p>
       </div>
 
       <div class="track-title">
-	  <span class="playlist-track" href="#" data-play-track="1" onClick={()=> play_function(3)}><h4>{playlistSong[2].title}</h4></span>
+	  <span class="playlist-track" href="#" data-play-track="1" onClick={()=> play_function(2)}><h4>{playlistSong[2].title}</h4></span>
 	  <p>{playlistSong[2].author}</p>
       </div>
 
@@ -80,24 +109,24 @@ return (
 
 
 
-
 			<div className="audio_div">
-			<div class="ui-seekbar">
-			<input type="range" class="ui-slider" min="1" max="1200" value="0"/>
-		</div>
-		
-		<div class="ui-controls">
-		
-			<i class="fas fa-random "></i>
-			<i class="fas fa-step-backward fas-2xl"></i>
-			<i class="fas fa-pause fas-2xl"></i>
-			<i class="fas fa-step-forward fa-2xl"></i>
-			<i class="fas fa-redo fa-2xl"></i>
-		</div>
-		
-				</div>
+<div class="ui-seekbar">
+<input type="range" class="ui-slider" min="1" max="1200" value="0"/>
+</div>
+
+<div class="ui-controls">
+<span><i class="fa-solid fa-backward fa-2xl" onClick={()=> previous_function()}></i></span>
+
+<span><i className={playStatus} onClick={()=> play_function()}></i></span>
+<span><i class="fa-solid fa-forward fa-2xl" onClick={()=> next_function()}></i></span>
+<span><i class="fas fa-random fa-2xl"></i></span>
+<span><i class="fas fa-redo fa-2xl"></i></span>
+</div>
+
+	</div> 
+
+	
 		</div>
 	);
 };
-
 
