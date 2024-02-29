@@ -41,16 +41,15 @@ useEffect(()=>{
 
 function play_function (id){
 if(audioTest.paused){
-	setPlayStatus('fa-solid fa-play fa-2xl');
-	
-	//audioTest= new Audio(playlistSong[currentSong].url);
+	setPlayStatus('fa-solid fa-pause fa-2xl');	
+	setPlayStatus(id);
+	audioTest= new Audio(playlistSong[currentSong].url);
    audioTest.play();
 }
 else{
-	setPlayStatus('fa-solid fa-pause fa-2xl');
-	setCurrentSong(id);
-	audioTest= new Audio(playlistSong[currentSong].url);
-   audioTest.play();
+	setPlayStatus('fa-solid fa-play fa-2xl');
+	
+   audioTest.pause();
 }
 
 
