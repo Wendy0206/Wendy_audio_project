@@ -1,5 +1,15 @@
 body{
     margin-top: 5%;
+    background-color: rgb(95, 91, 91);
+}
+.head_div{
+    display: flex;
+    justify-content: center;
+}
+
+h1{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #3b3d40;
 }
 
 .container {
@@ -8,11 +18,15 @@ body{
     margin: 0 auto;
     width: 600px;
   border-radius: 10px;
- 
+  overflow-x: scroll;
   background: linear-gradient(45deg, #d2dfed 0%,#c8d7eb 26%,#bed0ea 51%,#a6c0e3 51%,#afc7e8 62%,#bad0ef 75%,#99b5db 88%,#799bc8 100%);
     color: white;
 }
 
+.playlist_div{
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 
 span {
     cursor: pointer;
@@ -22,6 +36,8 @@ span {
 .track-title{
   height: 70px;
   width: 100%;  
+  padding: auto;
+  border-bottom: 1px solid white;
   
 
 }
@@ -39,7 +55,7 @@ span {
 	height: 15%;
 	display: flex;
 	gap: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     margin-left: 5px;
 	
 

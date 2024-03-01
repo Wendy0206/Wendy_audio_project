@@ -8,7 +8,7 @@ import {useState, useEffect } from "react";
 export const Playlist = () => {
 	const[currentSong, setCurrentSong]=useState(0);
 	const[playStatus, setPlayStatus]=useState('fa-solid fa-play fa-2xl');
-	var audioTest;
+	
 let playlistSong=	[
 		{
 			title: "South Park",
@@ -32,6 +32,7 @@ let playlistSong=	[
 				"https://assets.breatheco.de/apis/sound/files/cartoons/songs/x-men.mp3"
 		}
 	];
+	var audioTest= new Audio(playlistSong[0].url);
 
 useEffect(()=>{
 
@@ -40,20 +41,27 @@ useEffect(()=>{
 
 
 function play_function (id){
-if(audioTest.paused){
-	setPlayStatus('fa-solid fa-pause fa-2xl');	
-	setPlayStatus(id);
-	audioTest= new Audio(playlistSong[currentSong].url);
-   audioTest.play();
+
+if(id==null){
+
+
+
+
 }
 else{
-	setPlayStatus('fa-solid fa-play fa-2xl');
-	
-   audioTest.pause();
+alert(id);
 }
 
-
-	 }
+// if(audioTest.paused){
+// 	setPlayStatus('fa-solid fa-pause fa-2xl');	
+// 	// audioTest= new Audio(playlistSong[currentSong].url);
+//    audioTest.play();
+// }
+// else{
+// 	setPlayStatus('fa-solid fa-play fa-2xl');
+//   audioTest.pause();
+//   } 
+}
 
 	 
 
@@ -61,6 +69,7 @@ else{
 			setCurrentSong(currentSong-1);
 				audioTest= new Audio(playlistSong[currentSong].url);
 				audioTest.play();
+				
 				 }
 
 		 function next_function (id){
@@ -88,7 +97,6 @@ return (
 		<p>{playlistSong[0].author}</p>
       </div>
 	
-
       <div class="track-title">
 	  <span class="playlist-track" href="#" data-play-track="1" onClick={()=> play_function(1)}><h4>{playlistSong[1].title}</h4></span>
 	  <p>{playlistSong[1].author}</p>
@@ -104,8 +112,6 @@ return (
 	  </audio>
 			</div>
 
-			
-
 
 
 			<div className="audio_div">
@@ -114,10 +120,10 @@ return (
 </div>
 
 <div class="ui-controls">
-<span><i class="fa-solid fa-backward fa-2xl" onClick={()=> previous_function()}></i></span>
+<span onClick={()=>previous_function()}><i class="fa-solid fa-backward fa-2xl" ></i></span>
 
-<span><i className={playStatus} onClick={()=> play_function()}></i></span>
-<span><i class="fa-solid fa-forward fa-2xl" onClick={()=> next_function()}></i></span>
+<span onClick={()=> play_function()}><i className={playStatus} ></i></span>
+<span  onClick={()=> next_function()}><i class="fa-solid fa-forward fa-2xl"></i></span>
 <span><i class="fas fa-random fa-2xl"></i></span>
 <span><i class="fas fa-redo fa-2xl"></i></span>
 </div>
