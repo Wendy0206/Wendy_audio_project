@@ -2,27 +2,29 @@ import React from "react";
 import {useState, useEffect } from "react";
 
 
-//include images into your bundle
+
+
+
 
 //create your first component
 export const Playlist = () => {
 	const[currentSong, setCurrentSong]=useState(0);
 	const[playStatus, setPlayStatus]=useState('fa-solid fa-play fa-2xl');
 	
-let playlistSong=	[
+let playlistSong=[
 		{
 			title: "South Park",
 			id: "south-park",
 			author: "Kyle",
 			url:
-				"https://assets.breatheco.de/apis/sound/files/cartoons/songs/south-park.mp3"
+				" https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3"
 		},
 		{
 			title: "Thunder Cats",
 			id: "thundercats",
 			author: "Moonra",
 			url:
-				"https://assets.breatheco.de/apis/sound/files/cartoons/songs/thundercats.mp3"
+				"https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba-online-audio-converter.com_-1.wav"
 		},
 		{
 			title: "X-Men",
@@ -32,7 +34,9 @@ let playlistSong=	[
 				"https://assets.breatheco.de/apis/sound/files/cartoons/songs/x-men.mp3"
 		}
 	];
+
 	var audioTest= new Audio(playlistSong[0].url);
+
 
 useEffect(()=>{
 
@@ -40,30 +44,33 @@ useEffect(()=>{
 },[]);
 
 
+
 function play_function (id){
 
 if(id==null){
+if(audioTest.paused){
+	setPlayStatus('fa-solid fa-pause fa-2xl');	
+ audioTest= new Audio(playlistSong[currentSong].url);
+ audioTest.play();
+}
+else{
 
-
-
+ setPlayStatus('fa-solid fa-play fa-2xl');
+  audioTest.pause();
+}
 
 }
 else{
-alert(id);
+	setPlayStatus('fa-solid fa-pause fa-2xl');	
+	setCurrentSong(id);
+	
+// audioTest= new Audio(playlistSong[currentSong].url);
+ audioTest.play();
+
 }
 
-// if(audioTest.paused){
-// 	setPlayStatus('fa-solid fa-pause fa-2xl');	
-// 	// audioTest= new Audio(playlistSong[currentSong].url);
-//    audioTest.play();
-// }
-// else{
-// 	setPlayStatus('fa-solid fa-play fa-2xl');
-//   audioTest.pause();
-//   } 
-}
 
-	 
+}
 
 		 function previous_function (){
 			setCurrentSong(currentSong-1);
@@ -91,7 +98,6 @@ return (
 
 			<div className="playlist_div">
 
-
       <div class="track-title"> 
         <span class="playlist-track" href="#" data-play-track="1" onClick={()=> play_function(0)}><h4>{playlistSong[0].title}</h4></span>
 		<p>{playlistSong[0].author}</p>
@@ -107,14 +113,14 @@ return (
 	  <p>{playlistSong[2].author}</p>
       </div>
 
-	  <audio  title="Track 1" >
+	  <audio title="Track 1" />
 	 
-	  </audio>
 			</div>
 
 
 
 			<div className="audio_div">
+
 <div class="ui-seekbar">
 <input type="range" class="ui-slider" min="1" max="1200" value="0"/>
 </div>
