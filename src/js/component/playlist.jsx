@@ -4,17 +4,23 @@ import { useState, useEffect, useRef } from "react";
 
 
 
+
+
 //create your first component
 export const Playlist = () => {
 	const [currentSong, setCurrentSong] = useState(0);
 	const [playStatus, setPlayStatus] = useState('fa-solid fa-play fa-2xl');
 	const [playT, setPlayT] = useState(false);
-	const [counter, setCounter] = useState(0);
-	const [volumeE, setVolumeE] = useState('fa-solid fa-volume-low');
+	const [volumeT, setVolumeT] = useState(0.5);
+	const [volumeE, setVolumeE] = useState('fa-solid fa-volume-low fa-xl');
+	const [songP, setSongP] = useState(0);
+	const [stepS, setStepS] = useState(0);
+	
 	
 	//	const[songArr, setSongArr]=useState([0,1,2]);
-
-
+let interval;
+	let delay = 1000;
+	let startPress = null;
 	let playlistSong = [
 		{
 			title: "South Park",
@@ -40,13 +46,29 @@ export const Playlist = () => {
 	];
 
 	var audioTest=0;
-	useEffect(() => {
-		return () => stopCounter(); // when App is unmounted we should stop counter
-	  }, []);
+	// useEffect(() => {
+	// 	return () => stopCounter(); // when App is unmounted we should stop counter
+	//   }, []);
 
 	useEffect(() => {
+		if(playT==true){
+			
+	
+			//setStepS(Math.floor(audioTest.duration/100));
+			alert(audioTest.duration.toFixed());
+			interval= setInterval(()=>{
+				setSongP(stepS+stepS);
+			
 
-	}, []);
+			},5000);		
+			return ()=> clearInterval(interval);
+		}
+
+		else{
+     setSongP(0);
+		}
+
+	}, [playT]);
 
 
 
@@ -115,23 +137,50 @@ if(id==null)
 		audioTest.play();
 	}
 
-	const startCounter = () => {
-		if (intervalRef.current) return;
-		intervalRef.current = setInterval(() => {
-		  setCounter((prevCounter) => prevCounter + 1);
-		}, 10);
-	  };
+
+	// function sendDuration () {
+	// 	setStepS(Math.floor(audioTest.duration/100));
+	// 	alert('this song is'+stepS+'long');
+		
+	// }
+
 	
-	  const stopCounter = () => {
-		if (intervalRef.current) {
-		  clearInterval(intervalRef.current);
-		  intervalRef.current = null;
+	function counterDown() {
+		startPress = Date.now();
+	}
+	
+	function counterUp() {
+		if(Date.now() - startPress > delay)
+		{
+			setVolumeE('fa-solid fa-volume-xmark fa-xl');
+		
+			audioTest.muted=true;
 		}
-	  };
+		else{
+			
+			setVolumeT(volumeT-0.1);
+			audioTest.volume=volumeT;
+		}
+	}
+
+	function random_function(){
+		
+	}
 
 
-
-
+	function volume_up(){
+		if(volumeT==0)
+		{
+			setVolumeT(0.5);
+			audioTest.volume=volumeT;
+		}
+		else{
+			setVolumeT(volumeT+0.1);
+			audioTest.volume=volumeT;
+			setVolumeE('fa-solid fa-volume-low fa-xl');
+		}
+		
+	}
 
 
 	return (
@@ -159,7 +208,7 @@ if(id==null)
 					<p>{playlistSong[2].author}</p>
 				</div>
 
-				<audio ref={(e)=>audioTest=e} />
+				<audio ref={(e)=>audioTest=e} preload="metadata" id="testTone"/>
 
 			</div>
 
@@ -169,16 +218,16 @@ if(id==null)
 
 
 				<div class="ui-controls">
-					<input type="range" class="ui-slider" min="1" max="1200" value="0" />
+					<input type="range" class="ui-slider" min="1" max="100" value={songP} step={stepS}/>
 					<span onClick={() => previous_function()}><i class="fa-solid fa-backward fa-xl" ></i></span>
 
 					<span onClick={() => play_function()}><i className={playStatus} ></i></span>
 					<span onClick={() => next_function()}><i class="fa-solid fa-forward fa-xl"></i></span>
-					<span><i class="fas fa-random fa-xl"></i></span>
-					<span><i class="fas fa-redo fa-xl"></i></span>
-					<span onMouseDown={startCounter}  onMouseUp={stopCounter}   onMouseLeave={stopCounter}><i className={volumeE}></i></span>
+					<span onClick={() => random_function()}><i class="fas fa-random fa-xl"></i></span>
+					<span><i class="fa-solid fa-repeat fa-xl"></i></span>
+					<span onMouseDown={()=>counterDown()} onMouseUp={()=>counterUp()}><i className={volumeE}></i></span>
 					
-					<span><i class="fa-solid fa-volume-high fa-xl"></i></span>
+					<span onClick={() => volume_up()} ><i class="fa-solid fa-volume-high fa-xl"> </i></span>
 				</div>
 
 			</div>
