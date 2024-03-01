@@ -34,7 +34,7 @@ let interval;
 			id: "thundercats",
 			author: "Moonra",
 			url:
-				"https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba-online-audio-converter.com_-1.wav"
+				"https://assets.breatheco.de/apis/sound/files/cartoons/songs/thundercats.mp3"
 		},
 		{
 			title: "X-Men",
@@ -52,15 +52,18 @@ let interval;
 
 	useEffect(() => {
 		if(playT==true){
-			
-	
-			//setStepS(Math.floor(audioTest.duration/100));
-			alert(audioTest.duration.toFixed());
+		
 			interval= setInterval(()=>{
-				setSongP(stepS+stepS);
+				
+				// setSongP(stepS);
+				setStepS(Math.floor(audioTest.duration/100));
+				setSongP(songP+stepS);
+				alert(songP);
+				// console.log('this part runs second ' + Math.floor(audioTest.duration/100));
+
 			
 
-			},5000);		
+			},3000);		
 			return ()=> clearInterval(interval);
 		}
 
@@ -218,7 +221,7 @@ if(id==null)
 
 
 				<div class="ui-controls">
-					<input type="range" class="ui-slider" min="1" max="100" value={songP} step={stepS}/>
+					<input type="range" class="ui-slider" min="1" max="100" value={songP} step="1"/>
 					<span onClick={() => previous_function()}><i class="fa-solid fa-backward fa-xl" ></i></span>
 
 					<span onClick={() => play_function()}><i className={playStatus} ></i></span>
