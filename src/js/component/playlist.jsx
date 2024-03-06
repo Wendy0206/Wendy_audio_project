@@ -70,15 +70,14 @@ export const Playlist = () => {
 
 			interval = setInterval(() => {
 
-				// setSongP(stepS);
-				setStepS(Math.floor(audioTest.duration / 100));
+			
 				setSongP(songP + stepS);
-				alert(songP);
+			
 				// console.log('this part runs second ' + Math.floor(audioTest.duration/100));
 
 
 
-			}, 3000);
+			}, 1000);
 			return () => clearInterval(interval);
 		}
 
@@ -86,7 +85,7 @@ export const Playlist = () => {
 			setSongP(0);
 		}
 
-	}, [playT]);
+	}, [playT,songP]);
 
 
 
@@ -99,6 +98,7 @@ export const Playlist = () => {
 				console.log(audioTest);
 				audioTest.src = playlistSong[currentSong].url;
 				audioTest.play();
+				setStepS(Math.floor(audioTest.duration/100));
 				setPlayT(true);
 			}
 
@@ -120,6 +120,7 @@ export const Playlist = () => {
 				setCurrentSong(id);
 				audioTest.src = playlistSong[currentSong].url;
 				audioTest.play();
+				setStepS(Math.floor(audioTest.duration/100));
 				setPlayT(true);
 			}
 
@@ -228,7 +229,7 @@ export const Playlist = () => {
 
 
 				<div class="ui-controls">
-					<input type="range" class="ui-slider" min="1" max="100" value={songP} step="1" />
+					<input type="range" class="ui-slider" min="1" max="100" value={songP} step={stepS} />
 					<span onClick={() => previous_function()}><i class="fa-solid fa-backward fa-xl" ></i></span>
 
 					<span onClick={() => play_function()}><i className={playStatus} ></i></span>
@@ -236,7 +237,7 @@ export const Playlist = () => {
 					<span onClick={() => random_function()}><i class="fas fa-random fa-xl"></i></span>
 					<span><i class="fa-solid fa-repeat fa-xl"></i></span>
 					<span onMouseDown={() => counterDown()} onMouseUp={() => counterUp()} >
-						<i title='hold for 2 seconds to mute' className={volumeE}></i></span>
+						<i title='press or press and hold for 2 seconds to mute' className={volumeE}></i></span>
 
 					<span onClick={() => volume_up()} ><i class="fa-solid fa-volume-high fa-xl"> </i></span>
 				</div>
