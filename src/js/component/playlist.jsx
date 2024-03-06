@@ -15,10 +15,10 @@ export const Playlist = () => {
 	const [volumeE, setVolumeE] = useState('fa-solid fa-volume-low fa-xl');
 	const [songP, setSongP] = useState(0);
 	const [stepS, setStepS] = useState(0);
-	
-	
+
+
 	//	const[songArr, setSongArr]=useState([0,1,2]);
-let interval;
+	let interval;
 	let delay = 1000;
 	let startPress = null;
 	let playlistSong = [
@@ -42,33 +42,48 @@ let interval;
 			author: "Profesor",
 			url:
 				"https://assets.breatheco.de/apis/sound/files/cartoons/songs/x-men.mp3"
+		},
+
+		{
+			title: "Time over",
+			id: "x-men",
+			author: "Chris",
+			url:
+				"https://assets.breatheco.de/apis/sound/files/cartoons/songs/x-men.mp3"
+		},
+		{
+			title: "Thunder",
+			id: "thundercats",
+			author: "One Direction",
+			url:
+				"https://assets.breatheco.de/apis/sound/files/cartoons/songs/thundercats.mp3"
 		}
 	];
 
-	var audioTest=0;
+	var audioTest = 0;
 	// useEffect(() => {
 	// 	return () => stopCounter(); // when App is unmounted we should stop counter
 	//   }, []);
 
 	useEffect(() => {
-		if(playT==true){
-		
-			interval= setInterval(()=>{
-				
+		if (playT == true) {
+
+			interval = setInterval(() => {
+
 				// setSongP(stepS);
-				setStepS(Math.floor(audioTest.duration/100));
-				setSongP(songP+stepS);
+				setStepS(Math.floor(audioTest.duration / 100));
+				setSongP(songP + stepS);
 				alert(songP);
 				// console.log('this part runs second ' + Math.floor(audioTest.duration/100));
 
-			
 
-			},3000);		
-			return ()=> clearInterval(interval);
+
+			}, 3000);
+			return () => clearInterval(interval);
 		}
 
-		else{
-     setSongP(0);
+		else {
+			setSongP(0);
 		}
 
 	}, [playT]);
@@ -76,59 +91,58 @@ let interval;
 
 
 	function play_function(id) {
-	
-if(id==null)
-{
-		if(playT==false){
 
-		setPlayStatus('fa-solid fa-pause fa-2xl');
-	   console.log(audioTest);
-	   audioTest.src = playlistSong[currentSong].url;
-	   audioTest.play();
-	   setPlayT(true);
-		}
+		if (id == null) {
+			if (playT == false) {
 
-		else{
-
-		 setPlayStatus('fa-solid fa-play fa-2xl');
-		  audioTest.pause();
-		  setPlayT(false);
-	
-	
-	}
-}
-
-	else{
-
-		if(playT==false){
-
-			setPlayStatus('fa-solid fa-pause fa-2xl');
-		  setCurrentSong(id);
-		   audioTest.src = playlistSong[currentSong].url;
-		   audioTest.play();
-		   setPlayT(true);
+				setPlayStatus('fa-solid fa-pause fa-2xl');
+				console.log(audioTest);
+				audioTest.src = playlistSong[currentSong].url;
+				audioTest.play();
+				setPlayT(true);
 			}
-	
-			else{
-	
-			 setPlayStatus('fa-solid fa-play fa-2xl');
-			 audioTest.currentTime = 0;
-			  audioTest.play();
-			  setPlayT(false);
-		
-		
+
+			else {
+
+				setPlayStatus('fa-solid fa-play fa-2xl');
+				audioTest.pause();
+				setPlayT(false);
+
+
+			}
 		}
 
+		else {
+
+			if (playT == false) {
+
+				setPlayStatus('fa-solid fa-pause fa-2xl');
+				setCurrentSong(id);
+				audioTest.src = playlistSong[currentSong].url;
+				audioTest.play();
+				setPlayT(true);
+			}
+
+			else {
+
+				setPlayStatus('fa-solid fa-play fa-2xl');
+				audioTest.currentTime = 0;
+				audioTest.play();
+				setPlayT(false);
 
 
-	}
+			}
+
+
+
+		}
 
 	}
 
 	function previous_function() {
 
 		setCurrentSong(currentSong - 1);
-		audioTest.src=playlistSong[currentSong].url;
+		audioTest.src = playlistSong[currentSong].url;
 		audioTest.play();
 
 	}
@@ -136,7 +150,7 @@ if(id==null)
 	function next_function(id) {
 
 		setCurrentSong(currentSong + 1);
-		audioTest.src=playlistSong[currentSong].url;
+		audioTest.src = playlistSong[currentSong].url;
 		audioTest.play();
 	}
 
@@ -144,45 +158,43 @@ if(id==null)
 	// function sendDuration () {
 	// 	setStepS(Math.floor(audioTest.duration/100));
 	// 	alert('this song is'+stepS+'long');
-		
+
 	// }
 
-	
+
 	function counterDown() {
 		startPress = Date.now();
 	}
-	
+
 	function counterUp() {
-		if(Date.now() - startPress > delay)
-		{
+		if (Date.now() - startPress > delay) {
 			setVolumeE('fa-solid fa-volume-xmark fa-xl');
-		
-			audioTest.muted=true;
+
+			audioTest.muted = true;
 		}
-		else{
-			
-			setVolumeT(volumeT-0.1);
-			audioTest.volume=volumeT;
+		else {
+
+			setVolumeT(volumeT - 0.1);
+			audioTest.volume = volumeT;
 		}
 	}
 
-	function random_function(){
-		
+	function random_function() {
+
 	}
 
 
-	function volume_up(){
-		if(volumeT==0)
-		{
+	function volume_up() {
+		if (volumeT == 0) {
 			setVolumeT(0.5);
-			audioTest.volume=volumeT;
+			audioTest.volume = volumeT;
 		}
-		else{
-			setVolumeT(volumeT+0.1);
-			audioTest.volume=volumeT;
+		else {
+			setVolumeT(volumeT + 0.1);
+			audioTest.volume = volumeT;
 			setVolumeE('fa-solid fa-volume-low fa-xl');
 		}
-		
+
 	}
 
 
@@ -196,22 +208,17 @@ if(id==null)
 
 			<div className="playlist_div">
 
-				<div class="track-title">
-					<span class="playlist-track" href="#" data-play-track="1" onClick={() => play_function(0)}><h4>{playlistSong[0].title}</h4></span>
-					<p>{playlistSong[0].author}</p>
-				</div>
+				{
+					playlistSong.map((element, index) => 
+						<div class="track-title">
+							<span class="playlist-track" href="#" data-play-track="1" onClick={() => play_function(0)}><h4>{playlistSong[index].title}</h4></span>
+							<p>{playlistSong[index].author}</p>
+						</div>
+					)
+				}
 
-				<div class="track-title">
-					<span class="playlist-track" href="#" data-play-track="1" onClick={() => play_function(1)}><h4>{playlistSong[1].title}</h4></span>
-					<p>{playlistSong[1].author}</p>
-				</div>
 
-				<div class="track-title">
-					<span class="playlist-track" href="#" data-play-track="1" onClick={() => play_function(2)}><h4>{playlistSong[2].title}</h4></span>
-					<p>{playlistSong[2].author}</p>
-				</div>
-
-				<audio ref={(e)=>audioTest=e} preload="metadata" id="testTone"/>
+				<audio ref={(e) => audioTest = e} preload="metadata" id="testTone" />
 
 			</div>
 
@@ -221,15 +228,16 @@ if(id==null)
 
 
 				<div class="ui-controls">
-					<input type="range" class="ui-slider" min="1" max="100" value={songP} step="1"/>
+					<input type="range" class="ui-slider" min="1" max="100" value={songP} step="1" />
 					<span onClick={() => previous_function()}><i class="fa-solid fa-backward fa-xl" ></i></span>
 
 					<span onClick={() => play_function()}><i className={playStatus} ></i></span>
 					<span onClick={() => next_function()}><i class="fa-solid fa-forward fa-xl"></i></span>
 					<span onClick={() => random_function()}><i class="fas fa-random fa-xl"></i></span>
 					<span><i class="fa-solid fa-repeat fa-xl"></i></span>
-					<span onMouseDown={()=>counterDown()} onMouseUp={()=>counterUp()}><i className={volumeE}></i></span>
-					
+					<span onMouseDown={() => counterDown()} onMouseUp={() => counterUp()} >
+						<i title='hold for 2 seconds to mute' className={volumeE}></i></span>
+
 					<span onClick={() => volume_up()} ><i class="fa-solid fa-volume-high fa-xl"> </i></span>
 				</div>
 
