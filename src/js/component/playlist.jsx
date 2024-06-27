@@ -2,10 +2,6 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 
 
-
-
-
-
 //create your first component
 export const Playlist = () => {
 	const [currentSong, setCurrentSong] = useState(0);
