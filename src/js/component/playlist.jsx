@@ -136,6 +136,7 @@ export const Playlist = () => {
 		if (currentSong.current === playlistSong.length - 1 && pos == 1) { pos = -currentSong.current }
 		currentSong.current = currentSong.current + pos;
 		audioTest.src = playlistSong[currentSong.current].url;
+		setSongP(0);
 		audioTest.play();
 	}
 
