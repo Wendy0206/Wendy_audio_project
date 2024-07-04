@@ -2,9 +2,10 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 
 
+
 //create your first component
-export const Playlist = () => {
-	const currentSong = useRef(0);
+export const Media = () => {
+	const currentOne = useRef(0);
 	const [playStatus, setPlayStatus] = useState('fa-solid fa-play fa-2xl');
 	const playT = useRef(false);
 	const [volumeT, setVolumeT] = useState(0.5);
@@ -38,35 +39,7 @@ export const Playlist = () => {
 
 	var audioTest = new Audio;
 
-	const getSongs = () => {
-
-		var client_id = 'cfc0b81bea4641cbb51c4e9a3d2ecaa8';
-		var client_secret = '7c4058cf53d745a39017ec617e368ecf';
-		
-		var authOptions = {
-		  url: 'https://accounts.spotify.com/api/token',
-		  headers: {
-			'Authorization': 'Basic ' + (new Buffer.from(client_id + ':' + client_secret).toString('base64'))
-		  },
-		  form: {
-			grant_type: 'client_credentials'
-		  },
-		  json: true
-		};
-		
-		request.post(authOptions, function(error, response, body) {
-		  if (!error && response.statusCode === 200) {
-			var token = body.access_token;
-			console.log('this is the token we get fro mthe token : '+ token);
-		  }
-		});
-
-	}
-
-	useEffect(() => {
-		
-//getSongs();
-	}, []);	
+	
 
 	useEffect(() => {
 		if (playT.current == true && songP<100) {
@@ -141,6 +114,7 @@ export const Playlist = () => {
 	}
 
 
+
 	function counterDown() {
 		startPress = Date.now();
 	}
@@ -184,23 +158,7 @@ export const Playlist = () => {
 
 	}
 
-	// 	if (volumeT == 0) {
-	// 		setVolumeT(0.5);
-	// 	}
-	// 	else {
-	// 		if(volumeT<1){
-	// 			setVolumeT(volumeT + 0.1);
-	// 			setVolumeE('fa-solid fa-volume-low fa-xl');
-	// 		}
-	// 	}
-	// }else{
-
-	// 	if(volumeT<1 && volumeT>0){
-	// 		setVolumeT(volumeT - 0.1);
-	// 		setVolumeE('fa-solid fa-volume-low fa-xl');
-	// 	}
-	// }
-	// audioTest.volume = volumeT;
+	
 const get_duration=(e)=>{
 	setStepS(Math.floor((e.target.duration * 1000) / 100));
 	let test= Math.floor((e.target.duration * 1000) / 100);
@@ -208,42 +166,59 @@ const get_duration=(e)=>{
 }
 
 	return (
-		<div className="container">
+		<>
 
-			<div className="head_div">
-				<h1>My Playlist</h1>
-				<hr />
-			</div>
-
-			<div className="playlist_div">
-				{
-					playlistSong.map((el, index) =>
-						<div className="track-title" key={index}>
-							<span className="playlist-track" href="#" data-play-track="1" onClick={() => play_function(index)}><h4>{playlistSong[index].title}</h4></span>
-							<p>{playlistSong[index].author}</p>
-						</div>
-					)
-				}
-				<audio ref={(e) => audioTest = e} preload="metadata" id="testTone" onLoadedMetadata={(e)=>get_duration(e)} />
-
-			</div>
-
-			<div className="audio_div">
-				<div className="ui-controls">
-					<input type="range" className="ui-slider" min="1" max="100" value={songP} step={1} />
-					<span onClick={() => switch_function(-1)}><i className="fa-solid fa-backward fa-xl" ></i></span>
-					<span onClick={() => play_function(-1)}><i className={playStatus} ></i></span>
-					<span onClick={() => switch_function(1)}><i className="fa-solid fa-forward fa-xl"></i></span>
-					<span onClick={() => random_function()}><i className="fas fa-random fa-xl"></i></span>
-					<span><i className="fa-solid fa-repeat fa-xl"></i></span>
-					<span onMouseDown={() => counterDown()} onMouseUp={() => counterUp()} >
-						<i title='press or press and hold for 2 seconds to mute' className={volumeE}></i></span>
-					<span onClick={() => volume_up()} ><i className="fa-solid fa-volume-high fa-xl"> </i></span>
-				</div>
-
-			</div>
-
-		</div>
+<main class="player">
+        <div class="header">
+            <a href="#" class="button">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+                <span class="sr-only">menu bar</span>
+            </a>
+            <p>Now Playing</p>
+            <a href="#" class="button">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <span class="sr-only">Search</span>
+            </a>
+        </div> 
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROuBNBcOFFjXIkz4EkF_AyxysJil8Vldwb-Q&usqp=CAU" alt="album art" class="art"/> 
+        <div class="info">
+            <h1>{playlistSong[currentOne.current].title}</h1>
+            <p>{playlistSong[currentOne.current].author}</p>
+        </div>
+        <div class="prog">
+            <div class="prog-time">
+                <p class="left">0:00</p>
+                <p class="right">2:06</p>
+            </div>
+            <div class="prog-bar">
+                <div class="prog-bar-inner"></div>
+            </div>
+        </div>  
+        <ul class="buttons">
+            <a href="#" class="button button-sm">
+                <i class="fas fa-random fa-sm" aria-hidden="true"></i>
+                <span class="sr-only">Shuffle</span>
+            </a>
+            <a href="#" class="button button-md">
+                <i class="fas fa-step-backward" aria-hidden="true"></i>
+                <span class="sr-only" onClick={() => switch_function(-1)}></span>
+            </a>
+            <a href="#" class="button button-lg">
+                <i class="fas fa-pause fa-lg" aria-hidden="true" ></i>
+                <span class="sr-only" onClick={() => play_function(-1)}>{playStatus}</span>
+            </a>
+            <a href="#" class="button button-md">
+                <i class="fas fa-step-forward"></i>
+                <span class="sr-only" onClick={() => switch_function(1)}></span>
+            </a>
+            <a href="#" class="button button-sm">
+                <i class="fas fa-circle-notch fa-sm" aria-hidden="true"></i>
+                <span class="sr-only">Repeat Song</span>
+            </a>
+        </ul>   
+        <div class="bar"></div> 
+    </main>
+		</>
 	);
 };
 

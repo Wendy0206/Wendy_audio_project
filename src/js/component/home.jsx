@@ -1,5 +1,6 @@
 import React from "react";
 import { Playlist } from "./playlist";
+import { Media } from "./mediaplayer";
 
 //include images into your bundle
 
@@ -7,7 +8,7 @@ import { Playlist } from "./playlist";
 const Home = () => {
 	return (
 		<div className="container">
-			<Playlist/>			
+			<Media/>			
 		</div>
 	);
 };
